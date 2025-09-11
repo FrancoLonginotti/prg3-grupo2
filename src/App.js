@@ -4,12 +4,13 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './screens/Home/Home';
 import Resultados from './components/Formulario/Resultados';
 import Footer from './components/Footer/Footer';
-import Serie from './screens/Series/Serie';
-import Series from './screens/Series/Series';
-import Pelicula from './screens/Peliculas/Pelicula';
 import Peliculas from './screens/Peliculas/Peliculas';
 import PelisTodas from './components/Recomendaciones/PelisTodas';
 import SeriesTodas from './components/Recomendaciones/SeriesTodas';
+// import Detalle from './components/Detalle/Detalle';
+import Pelicula from './screens/Peliculas/Pelicula'
+import Serie from './screens/Series/Serie';
+import Series from './screens/Series/Series';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <Route path='/peliculas' component={Peliculas} />
     <Route path='/trendingMovies' component={PelisTodas} />
     <Route path='/trendingSeries' component={SeriesTodas} />
+    {/* <Route path='/detalle/:tipo/:id' component={Detalle}/> */}
 
   </Switch>
   <Footer/>

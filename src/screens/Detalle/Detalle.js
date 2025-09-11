@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import Peli from '../../components/Pelis/Peli';
+import Detalle from '../../components/Detalle/Detalle';
 
 class Pelicula extends Component{
     
 
     render(){
-        const id = this.props.match.params.id;
         return(
             <>
-            <Peli id={id}/>
+            <Detalle/>
             </>
         );
     }

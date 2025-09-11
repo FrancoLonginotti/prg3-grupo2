@@ -31,7 +31,7 @@ function Navbar() {
                         opciones.map((elm, idx) => <li className="nav-item" key={elm + idx}><Link to={elm.path} className="nav-link">{elm.nombre}</Link></li>)
                     }
                 </ul>
-                <Formulario/>
+                {/* <Formulario/> */}
             </nav>
         </>
     )
