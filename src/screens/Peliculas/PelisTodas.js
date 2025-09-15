@@ -98,7 +98,7 @@ class PelisTodas extends Component{
     render(){
         return(
             <>
-                <h2>All trending movies this week</h2>
+                <h2>All trending movies this month</h2>
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
