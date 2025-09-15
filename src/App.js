@@ -11,6 +11,7 @@ import SeriesTodas from './components/Recomendaciones/SeriesTodas';
 import Pelicula from './screens/Peliculas/Pelicula'
 import Serie from './screens/Series/Serie';
 import Series from './screens/Series/Series';
+import NotFound from './components/NotFound/NotFound';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <Route path='/peliculas' component={Peliculas} />
     <Route path='/trendingMovies' component={PelisTodas} />
     <Route path='/trendingSeries' component={SeriesTodas} />
+    <Route path="" component={NotFound}/>
     {/* <Route path='/detalle/:tipo/:id' component={Detalle}/> */}
 
   </Switch>

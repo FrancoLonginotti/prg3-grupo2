@@ -28,7 +28,7 @@ class Peli extends Component{
     }
 
     render(){
-        const {contenido } =this.state;
+        const {contenido } = this.state;
         if (!contenido) return <p>Cargando ... </p>;
 
         return(
@@ -37,9 +37,9 @@ class Peli extends Component{
                 <h2>{contenido.title}</h2>
                 <p>Rating: {contenido.vote_average}</p> 
                 <p>Estreno: {contenido.release_date}</p>
-                <p>Duracion: </p>
-                <p>Sinopsis: </p>
-                <p>Genero: {contenido.genre_ids}</p>
+                <p>Duracion:  </p>
+                <p>Sinopsis: {contenido.overview}</p>
+                <p>Genero: </p>
                 <buton>Agregar a Favoritos</buton>
             </section>
         )

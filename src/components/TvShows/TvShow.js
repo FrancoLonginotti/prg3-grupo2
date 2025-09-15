@@ -36,11 +36,9 @@ class TvShow extends Component{
                 <img src={`https://image.tmdb.org/t/p/w342/${contenido.poster_path}`} alt={contenido.name} />
                 <h2>{contenido.name}</h2>
                 <p>Rating: {contenido.vote_average}</p> 
-                {/* NO ENCONTRE EL RATING */}
-                <p>Duracion: </p>
-                <p>Sinopsis: </p>
-                <p>Genero: {contenido.genre_ids}</p>
+                <p>Sinopsis: {contenido.overview} </p>
                 <p>Estreno: {contenido.first_air_date}</p>
+                <p>Genero: </p>
                 <buton>Agregar a Favoritos</buton>
             </section>
         )
