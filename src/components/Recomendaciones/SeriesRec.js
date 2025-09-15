@@ -42,7 +42,7 @@ class SeriesRec extends Component{
         return(
             <>
                 <h2>Trending TV shows this week</h2>
-                <Link to="/trendingSeries">Ver todas</Link>
+                <Link to="/series">Ver todas</Link>
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
@@ -50,7 +50,7 @@ class SeriesRec extends Component{
                             <article key={i} className='single-card-tv'>
                                 <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
                                 <div className='cardBody'>
-                                    <h5 className="card-title">{elm.title}</h5>
+                                    <h5 className="card-title">{elm.name}</h5>
                                     <button onClick={()=>{this.cambio(elm.id)}}>
                                         {this.state.verDescripcion === elm.id ? "Ocultar descripción" : "Ver descripción"}
                                     </button>

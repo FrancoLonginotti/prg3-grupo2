@@ -1,0 +1,88 @@
+import React, { Component } from 'react';
+
+
+class DetallePeliculas extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            contenido: null,
+            esFavorito: false
+        }
+    }
+
+    componentDidMount(){
+
+        const id = this.props.match.params.id;
+        const api = "296583e7e37a5c7294c3a04233952058"
+        const endpoint = `https://api.themoviedb.org/3/movie/${id}?api_key=${api}`
+
+        fetch(endpoint)
+        .then(res => res.json())
+            .then(data => {
+            this.setState({
+                contenido: data,
+            })
+        })
+
+        .catch(error => {
+            console.log(error);
+        })
+
+        let favoritosLocalStorage = localStorage.getItem('favoritos')
+        let favoritosParse = JSON.parse(favoritosLocalStorage) 
+        if(favoritosParse !== null){
+            if(favoritosParse.includes(id)){
+                this.setState({
+                    esFavorito: true
+                })
+            }
+        }
+    }
+
+    agregarFavoritos(id){
+        let favoritos= []
+        let favoritosLocalStorage = localStorage.getItem('favoritos')
+        let favoritosParse = JSON.parse(favoritosLocalStorage)
+
+        if(favoritosParse !== null){
+            favoritosParse.push(id)
+            console.log(favoritosParse)
+            let favoritosString = JSON.stringify(favoritosParse)
+            localStorage.setItem('favoritos', favoritosString)
+            this.setState({
+                esFavorito: true
+            })
+        } else{
+            favoritos.push(id)
+            console.log(favoritos)
+            let favoritosString = JSON.stringify(favoritos)
+            localStorage.setItem('favoritos', favoritosString)
+            this.setState({
+                esFavorito: true
+            })
+        }
+    }
+
+    render(){
+        const {contenido } = this.state;
+        if (!contenido) return <p>Cargando ... </p>;
+
+        return(
+            <section className='detalle'>
+                <img src={`https://image.tmdb.org/t/p/w342/${contenido.poster_path}`} alt={contenido.title} />
+                <h2>{contenido.title}</h2>
+                <p>Rating: {contenido.vote_average}</p> 
+                <p>Estreno: {contenido.release_date}</p>
+                <p>Duracion: {contenido.runtime} </p>
+                <p>Sinopsis: {contenido.overview}</p>
+                <p>Genero: {contenido.genres.map(g => g.name).join(', ')}</p>
+                {
+                    this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(contenido.id)}>Agregar a Favoritos</button>
+                }
+                
+            </section>
+        )
+    }
+}
+
+export default DetallePeliculas;

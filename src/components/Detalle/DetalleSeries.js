@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class TvShow extends Component{
+class DetalleSeries extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -11,7 +11,7 @@ class TvShow extends Component{
     }
 
     componentDidMount(){
-        const id = this.props.id;
+        const id = this.props.match.params.id;
         const api = "296583e7e37a5c7294c3a04233952058"
         const endpoint = `https://api.themoviedb.org/3/tv/${id}?api_key=${api}`
 
@@ -45,4 +45,4 @@ class TvShow extends Component{
     }
 }
 
-export default TvShow;
+export default DetalleSeries;

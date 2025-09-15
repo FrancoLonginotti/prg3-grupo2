@@ -6,6 +6,7 @@ class SeriesTodas extends Component{
         super(props);
         this.state = {
             series: [],
+            pag:1,
             cargando: true,
             verDescripcion: null
         }
@@ -19,12 +20,35 @@ class SeriesTodas extends Component{
 
     componentDidMount(){
         const api = "296583e7e37a5c7294c3a04233952058"
-        fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api}`)
+        const pag = this.state.pag;
+        fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api}&page=${pag}`)
         .then(res => res.json())
         .then(data => {
             const resultados = data.results;
             this.setState({
                 series: resultados,
+                cargando: false
+            })
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({
+            cargando: false
+            })
+        })
+    }
+
+    masSeries(){
+        const api = "296583e7e37a5c7294c3a04233952058"
+        const nuevaPag = this.state.pag + 1;
+        fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${api}&page=${nuevaPag}`)
+        .then(res => res.json())
+        .then(data => {
+            const nuevosResultados = data.results;
+            const seriesActua = this.state.series.concat(nuevosResultados);
+            this.setState({
+                pag: nuevaPag,
+                series: seriesActua,
                 cargando: false
             })
         })
@@ -47,7 +71,7 @@ class SeriesTodas extends Component{
                             <article key={i} className='single-card-movie'>
                                 <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
                                 <div className='cardBody'>
-                                    <h5 className="card-title">{elm.title}</h5>
+                                    <h5 className="card-title">{elm.name}</h5>
                                     <button onClick={()=>{this.cambio(elm.id)}}>
                                         {this.state.verDescripcion === elm.id ? "Ocultar descripción" : "Ver descripción"}
                                     </button>
@@ -59,6 +83,7 @@ class SeriesTodas extends Component{
                         )
                     }
                 </section>
+                <button onClick={()=> this.masSeries()}>Ver más</button>
             </>
         )
     }

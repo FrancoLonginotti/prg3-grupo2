@@ -41,7 +41,7 @@ class PelisRec extends Component{
         return(
             <>
                 <h2>Trending movies this week</h2>
-                <Link to="/trendingMovies">Ver todas</Link>
+                <Link to="/peliculas">Ver todas</Link>
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {

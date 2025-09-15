@@ -4,14 +4,12 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './screens/Home/Home';
 import Resultados from './components/Formulario/Resultados';
 import Footer from './components/Footer/Footer';
-import Peliculas from './screens/Peliculas/Peliculas';
-import PelisTodas from './components/Recomendaciones/PelisTodas';
-import SeriesTodas from './components/Recomendaciones/SeriesTodas';
-// import Detalle from './components/Detalle/Detalle';
-import Pelicula from './screens/Peliculas/Pelicula'
-import Serie from './screens/Series/Serie';
-import Series from './screens/Series/Series';
+import PelisTodas from './screens/Peliculas/PelisTodas';
+import SeriesTodas from './screens/Series/SeriesTodas';
 import NotFound from './components/NotFound/NotFound';
+import DetalleSeries from './components/Detalle/DetalleSeries';
+import DetallePeliculas from './components/Detalle/DetallePeliculas';
+import Favoritos from './screens/Favoritos/Favoritos';
 
 
 function App() {
@@ -21,14 +19,12 @@ function App() {
   <Switch>
     <Route path='/' component={Home} exact={true} />
     <Route path='/resultados/:query' component={Resultados}/>
-    <Route path='/serie/:id' component={Serie} />
-    <Route path='/pelicula/:id' component={Pelicula} />
-    <Route path='/series' component={Series} />
-    <Route path='/peliculas' component={Peliculas} />
-    <Route path='/trendingMovies' component={PelisTodas} />
-    <Route path='/trendingSeries' component={SeriesTodas} />
+    <Route path='/serie/:id' component={DetalleSeries} /> {/* detalles */}
+    <Route path='/pelicula/:id' component={DetallePeliculas} />
+    <Route path='/peliculas' component={PelisTodas} />
+    <Route path='/series' component={SeriesTodas} />
+    <Route path='/favoritos' component={Favoritos} />
     <Route path="" component={NotFound}/>
-    {/* <Route path='/detalle/:tipo/:id' component={Detalle}/> */}
 
   </Switch>
   <Footer/>

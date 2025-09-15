@@ -1,29 +1,28 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './style.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-class Pelis extends Component {
-    constructor(props) {
+class PelisTodas extends Component{
+    constructor(props){
         super(props);
         this.state = {
             movies: [],
             pag: 1,
             cargando: true,
-            verDescripcion: null
-        };
-
+            verDescripcion: null,
+            esFavorito: false
+        }
     }
 
-    cambio(id) {
+    cambio(id){
         this.setState({
-            verDescripcion: id === this.state.verDescripcion ? null : id
-        });
+          verDescripcion: id === this.state.verDescripcion ? null : id
+        })
     }
 
     componentDidMount(){
-        const api = "296583e7e37a5c7294c3a04233952058";
+        const api = "296583e7e37a5c7294c3a04233952058"
         const pag = this.state.pag;
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api}&pag=${pag}`)
+        fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api}&page=${pag}`)
         .then(res => res.json())
         .then(data => {
             const resultados = data.results;
@@ -33,14 +32,48 @@ class Pelis extends Component {
             })
         })
         .catch(error => {
-            console.log(error);
-            this.setState({
-            cargando: false
+                console.log(error);
+                this.setState({
+                cargando: false
             })
         })
+
+        let favoritosLocalStorage = localStorage.getItem('favoritos')
+        let favoritosParse = JSON.parse(favoritosLocalStorage) 
+        if(favoritosParse !== null){
+            if(favoritosParse.includes()){
+                this.setState({
+                    esFavorito: true
+                })
+            }
+        }
     }
 
-     masPelis(){
+    agregarFavoritos(id){
+        let favoritos= []
+        let favoritosLocalStorage = localStorage.getItem('favoritos')
+        let favoritosParse = JSON.parse(favoritosLocalStorage)
+
+        if(favoritosParse !== null){
+            favoritosParse.push(id)
+            console.log(favoritosParse)
+            let favoritosString = JSON.stringify(favoritosParse)
+            localStorage.setItem('favoritos', favoritosString)
+            this.setState({
+                esFavorito: true
+            })
+        } else{
+            favoritos.push(id)
+            console.log(favoritos)
+            let favoritosString = JSON.stringify(favoritos)
+            localStorage.setItem('favoritos', favoritosString)
+            this.setState({
+                esFavorito: true
+            })
+        }
+    }
+
+    masPelis(){
         const api = "296583e7e37a5c7294c3a04233952058";
         const nuevaPag = this.state.pag + 1;
         fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api}&page=${nuevaPag}`)
@@ -62,11 +95,10 @@ class Pelis extends Component {
         })
     }
 
-
-    render() {
-        return (
-            <React.Fragment>
-                <h1>Lista de Peliculas</h1>
+    render(){
+        return(
+            <>
+                <h2>All trending movies this week</h2>
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
@@ -81,16 +113,17 @@ class Pelis extends Component {
                                     {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
                                     <br></br>
                                     <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
+                                    {this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(elm.id)}>Agregar a Favoritos</button>}
                                 </div>
                             </article>
                         )
                     }
+                    
                 </section>
                 <button onClick={()=> this.masPelis()}>Ver más</button>
-                {console.log(this.state.cantPelis)}
-            </React.Fragment>
-        );
+            </>
+        )
     }
 }
 
-export default Pelis;
+export default PelisTodas;
