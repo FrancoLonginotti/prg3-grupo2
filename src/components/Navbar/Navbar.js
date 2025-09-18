@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Formulario from '../Formulario/Formulario';
 import './styles.css'
 
 function Navbar() {
@@ -31,7 +30,6 @@ function Navbar() {
                         opciones.map((elm, idx) => <li className="nav-item" key={elm + idx}><Link to={elm.path} className="nav-link">{elm.nombre}</Link></li>)
                     }
                 </ul>
-                {/* <Formulario/> */}
             </nav>
         </>
     )

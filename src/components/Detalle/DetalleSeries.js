@@ -5,7 +5,8 @@ class DetalleSeries extends Component{
     constructor(props){
         super(props);
         this.state = {
-            contenido: null,
+            contenido: {},
+            cargando: true,
             favoritos: []
         }
     }
@@ -20,27 +21,35 @@ class DetalleSeries extends Component{
             .then(data => {
             this.setState({
                 contenido: data,
+                cargando: false
             })
         })
         .catch(error => {
             console.log(error);
+            this.setState({
+                cargando: false
+                })
         })
     }
 
     render(){
-        const {contenido } =this.state;
-        if (!contenido) return <p>Cargando ... </p>;
+        
+        const contenido =this.state.contenido;
 
         return(
-            <section className='detalle'>
+            <>
+            {this.state.cargando ? (<p>Cargando...</p>) :
+            (<section className='detalle'>
                 <img src={`https://image.tmdb.org/t/p/w342/${contenido.poster_path}`} alt={contenido.name} />
                 <h2>{contenido.name}</h2>
                 <p>Rating: {contenido.vote_average}</p> 
                 <p>Sinopsis: {contenido.overview} </p>
                 <p>Estreno: {contenido.first_air_date}</p>
-                <p>Genero: </p>
-                <buton>Agregar a Favoritos</buton>
-            </section>
+                <p>Genero: {contenido.genres ? contenido.genres.map(g => g.name).join(', ') : ''}</p>
+                <button>Agregar a Favoritos</button>
+            </section>)
+            }
+            </>
         )
     }
 }

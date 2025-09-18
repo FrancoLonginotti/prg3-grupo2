@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import './styles.css'
 
 class PelisTodas extends Component{
     constructor(props){
@@ -9,7 +10,8 @@ class PelisTodas extends Component{
             pag: 1,
             cargando: true,
             verDescripcion: null,
-            esFavorito: false
+            esFavorito: false,
+            busqueda: ''
         }
     }
 
@@ -17,6 +19,12 @@ class PelisTodas extends Component{
         this.setState({
           verDescripcion: id === this.state.verDescripcion ? null : id
         })
+    }
+
+    controlarCambios = (evento) => {
+        this.setState({ 
+            busqueda: evento.target.value 
+        });
     }
 
     componentDidMount(){
@@ -96,13 +104,24 @@ class PelisTodas extends Component{
     }
 
     render(){
+        const filtradas = this.state.movies.filter(s => 
+            s.title.toLowerCase().includes(this.state.busqueda.toLowerCase())
+        );
         return(
             <>
                 <h2>All trending movies this week</h2>
+
+                <input
+                    type="text"
+                    placeholder="Buscar pelicula..."
+                    onChange={this.controlarCambios}
+                />
+
                 {this.state.cargando && <p>Cargando...</p>}
+                
                 <section className='row cards'>
                     {
-                        this.state.movies.map((elm, i) => 
+                        filtradas.map((elm, i) => 
                             <article key={i} className='single-card-movie'>
                                 <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
                                 <div className='cardBody'>
@@ -113,6 +132,7 @@ class PelisTodas extends Component{
                                     {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
                                     <br></br>
                                     <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
+                                    <br></br>
                                     {this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(elm.id)}>Agregar a Favoritos</button>}
                                 </div>
                             </article>

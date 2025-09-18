@@ -5,7 +5,8 @@ class DetallePeliculas extends Component{
     constructor(props){
         super(props);
         this.state = {
-            contenido: null,
+            contenido: {},
+            cargando: true,
             esFavorito: false
         }
     }
@@ -21,11 +22,15 @@ class DetallePeliculas extends Component{
             .then(data => {
             this.setState({
                 contenido: data,
+                cargando: false
             })
         })
 
         .catch(error => {
             console.log(error);
+            this.setState({
+                cargando: false
+                })
         })
 
         let favoritosLocalStorage = localStorage.getItem('favoritos')
@@ -64,23 +69,27 @@ class DetallePeliculas extends Component{
     }
 
     render(){
-        const {contenido } = this.state;
-        if (!contenido) return <p>Cargando ... </p>;
-
+        
+        const contenido =this.state.contenido;
+        
         return(
-            <section className='detalle'>
+            <>
+            {this.state.cargando ? (<p>Cargando...</p>) : 
+            (<section className='detalle'>
                 <img src={`https://image.tmdb.org/t/p/w342/${contenido.poster_path}`} alt={contenido.title} />
                 <h2>{contenido.title}</h2>
                 <p>Rating: {contenido.vote_average}</p> 
                 <p>Estreno: {contenido.release_date}</p>
                 <p>Duracion: {contenido.runtime} </p>
                 <p>Sinopsis: {contenido.overview}</p>
-                <p>Genero: {contenido.genres.map(g => g.name).join(', ')}</p>
+                <p>Genero: {contenido.genres ? contenido.genres.map(g => g.name).join(', ') : ''}</p>
                 {
                     this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(contenido.id)}>Agregar a Favoritos</button>
                 }
                 
-            </section>
+            </section>)
+            }
+            </>
         )
     }
 }

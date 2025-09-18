@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import './styles.css'
 
 class SeriesTodas extends Component{
     constructor(props){
@@ -8,7 +9,8 @@ class SeriesTodas extends Component{
             series: [],
             pag:1,
             cargando: true,
-            verDescripcion: null
+            verDescripcion: null,
+            busqueda: ''
         }
     }
 
@@ -16,6 +18,12 @@ class SeriesTodas extends Component{
         this.setState({
           verDescripcion: id === this.state.verDescripcion ? null : id
         })
+    }
+
+    controlarCambios = (evento) => {
+        this.setState({ 
+            busqueda: evento.target.value 
+        });
     }
 
     componentDidMount(){
@@ -61,13 +69,21 @@ class SeriesTodas extends Component{
     }
 
     render(){
+        const filtradas = this.state.series.filter(s => 
+            s.name.toLowerCase().includes(this.state.busqueda.toLowerCase())
+        );
         return(
             <>
                 <h2>All trending TV shows this week</h2>
+                <input
+                    type="text"
+                    placeholder="Buscar serie..."
+                    onChange={this.controlarCambios}
+                />
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
-                        this.state.series.map((elm, i) => 
+                        filtradas.map((elm, i) => 
                             <article key={i} className='single-card-movie'>
                                 <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
                                 <div className='cardBody'>
