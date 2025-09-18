@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import './styles.css'
+import './styles.css';
+import Fav from '../Favoritos/fav';
 
 class PelisTodas extends Component{
     constructor(props){
@@ -10,7 +11,6 @@ class PelisTodas extends Component{
             pag: 1,
             cargando: true,
             verDescripcion: null,
-            esFavorito: false,
             busqueda: ''
         }
     }
@@ -45,40 +45,6 @@ class PelisTodas extends Component{
                 cargando: false
             })
         })
-
-        let favoritosLocalStorage = localStorage.getItem('favoritos')
-        let favoritosParse = JSON.parse(favoritosLocalStorage) 
-        if(favoritosParse !== null){
-            if(favoritosParse.includes()){
-                this.setState({
-                    esFavorito: true
-                })
-            }
-        }
-    }
-
-    agregarFavoritos(id){
-        let favoritos= []
-        let favoritosLocalStorage = localStorage.getItem('favoritos')
-        let favoritosParse = JSON.parse(favoritosLocalStorage)
-
-        if(favoritosParse !== null){
-            favoritosParse.push(id)
-            console.log(favoritosParse)
-            let favoritosString = JSON.stringify(favoritosParse)
-            localStorage.setItem('favoritos', favoritosString)
-            this.setState({
-                esFavorito: true
-            })
-        } else{
-            favoritos.push(id)
-            console.log(favoritos)
-            let favoritosString = JSON.stringify(favoritos)
-            localStorage.setItem('favoritos', favoritosString)
-            this.setState({
-                esFavorito: true
-            })
-        }
     }
 
     masPelis(){
@@ -110,13 +76,7 @@ class PelisTodas extends Component{
         return(
             <>
                 <h2>All trending movies this week</h2>
-
-                <input
-                    type="text"
-                    placeholder="Buscar pelicula..."
-                    onChange={this.controlarCambios}
-                />
-
+                <input type="text" placeholder="Buscar pelicula..." onChange={this.controlarCambios}/>
                 {this.state.cargando && <p>Cargando...</p>}
                 
                 <section className='row cards'>
@@ -133,7 +93,8 @@ class PelisTodas extends Component{
                                     <br></br>
                                     <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
                                     <br></br>
-                                    {this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(elm.id)}>Agregar a Favoritos</button>}
+                                    <Fav isSerie={false} id={elm.id}/>
+
                                 </div>
                             </article>
                         )

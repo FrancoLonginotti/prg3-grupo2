@@ -17,8 +17,8 @@ function Navbar() {
             path: '/series'
         },
         {
-            nombre: 'Favoritas',
-            path: '/favoritas'
+            nombre: 'Favoritos',
+            path: '/favoritos'
         }
     ]
     return(

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import './styles.css'
+import './styles.css';
+import Fav from '../../screens/Favoritos/fav';
 
 class SeriesRec extends Component{
     constructor(props){
@@ -57,6 +58,8 @@ class SeriesRec extends Component{
                                     {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
                                     <br></br>
                                     <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
+                                    <br></br>
+                                    <Fav isSerie={false} id={elm.id}/>
                                 </div>
                             </article>
                         )

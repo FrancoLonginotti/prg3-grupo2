@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import './styles.css'
+import './styles.css';
+import Fav from '../Favoritos/fav';
 
 class SeriesTodas extends Component{
     constructor(props){
@@ -44,6 +45,7 @@ class SeriesTodas extends Component{
             cargando: false
             })
         })
+
     }
 
     masSeries(){
@@ -75,11 +77,7 @@ class SeriesTodas extends Component{
         return(
             <>
                 <h2>All trending TV shows this week</h2>
-                <input
-                    type="text"
-                    placeholder="Buscar serie..."
-                    onChange={this.controlarCambios}
-                />
+                <input type="text" placeholder="Buscar serie..." onChange={this.controlarCambios} />
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
@@ -94,6 +92,8 @@ class SeriesTodas extends Component{
                                     {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
                                     <br></br>
                                     <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
+                                    <br></br>
+                                    <Fav isSerie={true} id={elm.id}/>
                                 </div>
                             </article>
                         )

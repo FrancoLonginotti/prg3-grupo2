@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
+import Fav from '../../screens/Favoritos/fav'
 
 class DetallePeliculas extends Component{
     constructor(props){
         super(props);
         this.state = {
             contenido: {},
-            cargando: true,
-            esFavorito: false
+            cargando: true
         }
     }
 
@@ -19,7 +18,7 @@ class DetallePeliculas extends Component{
 
         fetch(endpoint)
         .then(res => res.json())
-            .then(data => {
+        .then(data => {
             this.setState({
                 contenido: data,
                 cargando: false
@@ -32,40 +31,6 @@ class DetallePeliculas extends Component{
                 cargando: false
                 })
         })
-
-        let favoritosLocalStorage = localStorage.getItem('favoritos')
-        let favoritosParse = JSON.parse(favoritosLocalStorage) 
-        if(favoritosParse !== null){
-            if(favoritosParse.includes(id)){
-                this.setState({
-                    esFavorito: true
-                })
-            }
-        }
-    }
-
-    agregarFavoritos(id){
-        let favoritos= []
-        let favoritosLocalStorage = localStorage.getItem('favoritos')
-        let favoritosParse = JSON.parse(favoritosLocalStorage)
-
-        if(favoritosParse !== null){
-            favoritosParse.push(id)
-            console.log(favoritosParse)
-            let favoritosString = JSON.stringify(favoritosParse)
-            localStorage.setItem('favoritos', favoritosString)
-            this.setState({
-                esFavorito: true
-            })
-        } else{
-            favoritos.push(id)
-            console.log(favoritos)
-            let favoritosString = JSON.stringify(favoritos)
-            localStorage.setItem('favoritos', favoritosString)
-            this.setState({
-                esFavorito: true
-            })
-        }
     }
 
     render(){
@@ -83,9 +48,7 @@ class DetallePeliculas extends Component{
                 <p>Duracion: {contenido.runtime} </p>
                 <p>Sinopsis: {contenido.overview}</p>
                 <p>Genero: {contenido.genres ? contenido.genres.map(g => g.name).join(', ') : ''}</p>
-                {
-                    this.state.esFavorito ? <button>Sacar de favoritos</button> : <button onClick={() => this.agregarFavoritos(contenido.id)}>Agregar a Favoritos</button>
-                }
+                <Fav isSerie={false} id={contenido.id}/>
                 
             </section>)
             }

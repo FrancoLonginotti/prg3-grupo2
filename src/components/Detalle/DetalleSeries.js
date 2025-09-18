@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
+import Fav from '../../screens/Favoritos/fav'
 
 class DetalleSeries extends Component{
     constructor(props){
         super(props);
         this.state = {
             contenido: {},
-            cargando: true,
-            favoritos: []
+            cargando: true
         }
     }
 
@@ -46,7 +45,7 @@ class DetalleSeries extends Component{
                 <p>Sinopsis: {contenido.overview} </p>
                 <p>Estreno: {contenido.first_air_date}</p>
                 <p>Genero: {contenido.genres ? contenido.genres.map(g => g.name).join(', ') : ''}</p>
-                <button>Agregar a Favoritos</button>
+                <Fav isSerie={true} id={contenido.id}/>
             </section>)
             }
             </>
