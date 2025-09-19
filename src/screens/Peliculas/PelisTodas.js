@@ -21,9 +21,10 @@ class PelisTodas extends Component{
         })
     }
 
-    controlarCambios = (evento) => {
+    controlarCambios(busqueda){
+        console.log(busqueda.target.value)
         this.setState({ 
-            busqueda: evento.target.value 
+            busqueda: busqueda.target.value 
         });
     }
 
@@ -76,7 +77,7 @@ class PelisTodas extends Component{
         return(
             <>
                 <h2>All trending movies this week</h2>
-                <input type="text" placeholder="Buscar pelicula..." onChange={this.controlarCambios}/>
+                <input type="text" placeholder="Buscar pelicula..." onChange={(busqueda) => this.controlarCambios(busqueda)}/>
                 {this.state.cargando && <p>Cargando...</p>}
                 
                 <section className='row cards'>

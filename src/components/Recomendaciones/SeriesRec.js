@@ -59,7 +59,7 @@ class SeriesRec extends Component{
                                     <br></br>
                                     <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
                                     <br></br>
-                                    <Fav isSerie={false} id={elm.id}/>
+                                    <Fav isSerie={true} id={elm.id}/>
                                 </div>
                             </article>
                         )

@@ -32,19 +32,13 @@ class fav extends Component{
             if(!favoritosParse.includes(id)){
                 favoritosParse.push(id)
             }
-            
             let favoritosString = JSON.stringify(favoritosParse)
             localStorage.setItem(local, favoritosString)
-
-            console.log(favoritosParse)
-
         } else{
             favoritos.push(id)
             
             let favoritosString = JSON.stringify(favoritos)
             localStorage.setItem(local, favoritosString)
-            
-            console.log(favoritos)
         }
 
         this.setState({
@@ -61,17 +55,18 @@ class fav extends Component{
         let favoritosString = JSON.stringify(favs)
         localStorage.setItem(local, favoritosString)
 
-        console.log(favs)
-
         this.setState({
             esFavorito: false
         })
     }
 
     render(){
+        const local = this.props.isSerie ? 'favoritosSeries' : 'favoritosPeliculas';
+        const favoritos = JSON.parse(localStorage.getItem(local) || "[]");
+        
         return(
             <>
-                {this.state.esFavorito  
+                {favoritos.includes(this.props.id)   
                 ? 
                 <button onClick={() => this.sacarFavoritos(this.props.id)}>Sacar de favoritos</button> 
                 : 
