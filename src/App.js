@@ -2,7 +2,7 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './screens/Home/Home';
-import Resultados from './components/Formulario/Resultados';
+import Resultados from './screens/Resultados/Resultados';
 import Footer from './components/Footer/Footer';
 import PelisTodas from './screens/Peliculas/PelisTodas';
 import SeriesTodas from './screens/Series/SeriesTodas';

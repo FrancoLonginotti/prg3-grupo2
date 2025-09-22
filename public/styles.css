@@ -1,36 +1,40 @@
 .cards {
-    padding: 0.75rem 1.25rem;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    padding: 0.75rem 1.25rem;
     justify-content: space-between;
     margin-bottom: 2%;
 }
+
+.card-img-top{
+    max-width: 100%;
+    max-height: auto;
+}
+
 .cardBody {
-    margin-top: 20px;
+    margin-top: 12px;
 }
 .single-card-people {
-    width: 19%;
+    width: 100%;
 }
-.single-card-movie {
-    width: 24%;
-}
+
 .single-card-playing {
-    width: 15%;
+    width: 100%;
 }
 #now-playing .card-text{
     height: 100px;
     overflow: hidden;
 }
 .single-card-tv {
-    width: 19%;
+    width: 100%;
 }
 .tv-show .card-text{
     height: 100px;
     overflow: hidden;
 }
 .single-card-on-air{
-    width: 15%;
+    width: 100%;
 }
 #on-air-today .card-text{
     height: 100px;
@@ -38,11 +42,25 @@
 }
 
 .all-movies .single-card-movie {
-    width: 15%;
+    width: 100%;
 }
 
-@media(min-width: 765px){
-    nav {
-        grid-template-columns: 4fr 3fr;
-    }
+@media (min-width: 600px) {
+  .single-card-movie,
+  .single-card-tv,
+  .single-card-people,
+  .single-card-playing,
+  .single-card-on-air {
+    width: 48%;
+  }
+}
+
+@media (min-width: 992px) {
+  .single-card-movie,
+  .single-card-tv,
+  .single-card-people,
+  .single-card-playing,
+  .single-card-on-air {
+    width: 23%;  
+  }
 }

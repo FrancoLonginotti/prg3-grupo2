@@ -11,6 +11,19 @@ class Favoritos extends Component{
             cargando: true
         }
     }
+    sacarFavoritos(id, isSerie){
+    if (isSerie === true) {
+        const seriesFav = this.state.seriesFav.filter(elm => elm.id !== id);
+        this.setState({ 
+            seriesFav: seriesFav
+        });
+    } else {
+        const peliculasFav = this.state.peliculasFav.filter(elm => elm.id !== id);
+        this.setState({ 
+            peliculasFav: peliculasFav
+        });
+    }
+    }
 
     componentDidMount(){
         const api = "296583e7e37a5c7294c3a04233952058";
@@ -77,7 +90,7 @@ class Favoritos extends Component{
                                     <h5 className="card-title">{elm.title}</h5>
                                     <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
                                     <br></br>
-                                    <Fav isSerie={false} id={elm.id}/>
+                                    <Fav isSerie={false} id={elm.id} sacarFavoritos={ () => this.sacarFavoritos(elm.id, false)}/>
                                 </div>
                             </article>
                         ))}
@@ -93,7 +106,7 @@ class Favoritos extends Component{
                                     <h5 className="card-title">{elm.name}</h5>
                                     <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
                                     <br></br>
-                                    <Fav isSerie={true} id={elm.id}/>
+                                    <Fav isSerie={true} id={elm.id} sacarFavoritos={ () => this.sacarFavoritos(elm.id, true)}/>
                                 </div>
                             </article>
                         ))}

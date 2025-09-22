@@ -15,41 +15,31 @@ class Resultados extends Component{
     }
     
     componentDidMount() {
-        const api = "296583e7e37a5c7294c3a04233952058"
-        const query = this.state.busqueda
+        const api_key = "296583e7e37a5c7294c3a04233952058"
         
-        fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${api}`)
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${this.props.match.params.query}&api_key=${api_key}`)
         .then(res => res.json())
         .then(data => {
-            const peliculasFiltradas = data.results.filter(p =>
-                p.title.toLowerCase().includes(query)
-            );
-            this.setState({
-                resultadosPeliculas: peliculasFiltradas,
+        console.log(data)
+        this.setState({
+                resultadosPeliculas: data.results,
                 cargando: false
             })
         })
-        .catch(error => {
-            console.log(error);
-        })
+        .catch(err => console.error(err));
 
-        fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${api}`)
+        fetch(`https://api.themoviedb.org/3/search/tv?query=${this.props.match.params.query}&api_key=${api_key}`)
         .then(res => res.json())
         .then(data => {
-            const seriesFiltradas = data.results.filter(s =>
-                s.name.toLowerCase().includes(query)
-            );
-            this.setState({
-                resultadosSeries: seriesFiltradas,
+        console.log(data)
+        this.setState({
+                resultadosSeries: data.results,
                 cargando: false
             })
         })
-        .catch(error => {
-            console.log(error);
-        })
+        .catch(err => console.error(err));
     }
 
-    
     render(){
         return(
             <>
@@ -75,10 +65,10 @@ class Resultados extends Component{
                     
                 <h2>Series:</h2>
                 <section className='row cards'>
-                    {this.state.resultadosSeries.length === 0 ? (<p>No se encontraron peliculas</p>) : 
+                    {this.state.resultadosSeries.length === 0 ? (<p>No se encontraron series</p>) : 
                     (
                         this.state.resultadosSeries.map((s) => (
-                            <article key={s.id} className='single-card-tv'>
+                            <article key={s.id} className='single-card-movie'>
                                 <img src={`https://image.tmdb.org/t/p/w342/${s.poster_path}`} alt="" className="card-img-top"/>
                                 <div className='cardBody'>
                                     <h5 className="card-title">{s.name}</h5>

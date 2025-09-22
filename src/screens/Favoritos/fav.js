@@ -58,7 +58,11 @@ class fav extends Component{
         this.setState({
             esFavorito: false
         })
-    }
+
+        if(this.props.sacarFavoritos){
+            this.props.sacarFavoritos(this.props.id)
+        }
+        }
 
     render(){
         const local = this.props.isSerie ? 'favoritosSeries' : 'favoritosPeliculas';
