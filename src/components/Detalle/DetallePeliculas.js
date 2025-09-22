@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Fav from '../../screens/Favoritos/fav'
+import Fav from '../../screens/Favoritos/Fav'
 
 class DetallePeliculas extends Component{
     constructor(props){

@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import Fav from '../../screens/Favoritos/fav';
+import Card from '../Card/Card'
 
 class PelisRec extends Component{
     constructor(props){
         super(props);
         this.state = {
             movies: [],
-            cargando: true,
-            verDescripcion: null
+            cargando: true
         }
-    }
-
-    cambio(id){
-        this.setState({
-          verDescripcion: id === this.state.verDescripcion ? null : id
-        })
     }
 
     componentDidMount(){
@@ -46,26 +39,20 @@ class PelisRec extends Component{
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
-                        this.state.movies.map((elm, i) => 
-                            <article key={i} className='single-card-movie'>
-                                <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
-                                <div  className='cardBody'>
-                                    <h5 className="card-title">{elm.title}</h5>
-                                    <button onClick={()=>{this.cambio(elm.id)}}>
-                                        {this.state.verDescripcion === elm.id ? "Ocultar descripción" : "Ver descripción"}
-                                    </button>
-                                    {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
-                                    <br></br>
-                                    <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
-                                    <br></br>
-                                    <Fav isSerie={false} id={elm.id}/>
-                                </div>
-                            </article>
+                        this.state.movies.map((elm, i) =>
+                            <Card
+                                key={i}
+                                id={elm.id}
+                                poster_path={elm.poster_path}
+                                title={elm.title}
+                                overview={elm.overview}
+                                isSerie={false}
+                            />
                         )
                     }
                 </section>
             </>
-        )
+        ) 
     }
 }
 

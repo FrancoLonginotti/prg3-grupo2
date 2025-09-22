@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './styles.css';
-import Fav from '../../screens/Favoritos/fav';
+import Card from '../Card/Card'
 
 class SeriesRec extends Component{
     constructor(props){
         super(props);
         this.state = {
             series: [],
-            cargando: true,
-            verDescripcion: null
+            cargando: true
         }
-    }
-
-    cambio(id){
-        this.setState({
-          verDescripcion: id === this.state.verDescripcion ? null : id
-        })
     }
 
     componentDidMount(){
@@ -47,27 +40,21 @@ class SeriesRec extends Component{
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
-                        this.state.series.map((elm, i) => 
-                            <article key={i} className='single-card-tv'>
-                                <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
-                                <div className='cardBody'>
-                                    <h5 className="card-title">{elm.name}</h5>
-                                    <button onClick={()=>{this.cambio(elm.id)}}>
-                                        {this.state.verDescripcion === elm.id ? "Ocultar descripción" : "Ver descripción"}
-                                    </button>
-                                    {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
-                                    <br></br>
-                                    <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
-                                    <br></br>
-                                    <Fav isSerie={true} id={elm.id}/>
-                                </div>
-                            </article>
+                        this.state.series.map((elm, i) =>
+                            <Card
+                                key={i}
+                                id={elm.id}
+                                poster_path={elm.poster_path}
+                                name={elm.name}
+                                overview={elm.overview}
+                                isSerie={true}
+                            />
                         )
                     }
                 </section>
             </>
         )
-    }
+    } 
 }
 
 export default SeriesRec;

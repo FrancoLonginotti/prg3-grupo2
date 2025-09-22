@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Fav from './fav';
+import Card from '../../components/Card/Card';
 
 class Favoritos extends Component{
     constructor(props){
@@ -10,19 +9,6 @@ class Favoritos extends Component{
             seriesFav: [],
             cargando: true
         }
-    }
-    sacarFavoritos(id, isSerie){
-    if (isSerie === true) {
-        const seriesFav = this.state.seriesFav.filter(elm => elm.id !== id);
-        this.setState({ 
-            seriesFav: seriesFav
-        });
-    } else {
-        const peliculasFav = this.state.peliculasFav.filter(elm => elm.id !== id);
-        this.setState({ 
-            peliculasFav: peliculasFav
-        });
-    }
     }
 
     componentDidMount(){
@@ -75,6 +61,20 @@ class Favoritos extends Component{
         })
     }
 
+    sacarFavoritos(id, isSerie){
+        if (isSerie === true) {
+            const seriesFav = this.state.seriesFav.filter(elm => elm.id !== id);
+            this.setState({ 
+                seriesFav: seriesFav
+            });
+        } else {
+            const peliculasFav = this.state.peliculasFav.filter(elm => elm.id !== id);
+            this.setState({ 
+                peliculasFav: peliculasFav
+            });
+        }
+        }
+
     render(){
         return(
             <>
@@ -84,31 +84,31 @@ class Favoritos extends Component{
                 <section className='row cards'>
                     {(this.state.peliculasFav.length === 0) ? (<p>No tenes peliculas favoritas.</p>) : 
                         (this.state.peliculasFav.map((elm, i) => 
-                            <article key={i} className='single-card-movie'>
-                                <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
-                                <div className='cardBody'>
-                                    <h5 className="card-title">{elm.title}</h5>
-                                    <Link to={`/pelicula/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
-                                    <br></br>
-                                    <Fav isSerie={false} id={elm.id} sacarFavoritos={ () => this.sacarFavoritos(elm.id, false)}/>
-                                </div>
-                            </article>
+                            <Card
+                                key={elm.id}
+                                id={elm.id}
+                                poster_path={elm.poster_path}
+                                title={elm.title}
+                                overview={elm.overview}
+                                isSerie={false}
+                                sacarFavoritos={() => this.sacarFavoritos(elm.id, false)} 
+                            />
                         ))}
                 </section>
 
                 <h3>Series favoritas:</h3>
                 <section className='row cards'>
                     {(this.state.seriesFav.length === 0) ? (<p>No tenes series favoritas.</p>) : 
-                        (this.state.seriesFav.map((elm, i) => 
-                            <article key={i} className='single-card-movie'>
-                                <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
-                                <div className='cardBody'>
-                                    <h5 className="card-title">{elm.name}</h5>
-                                    <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
-                                    <br></br>
-                                    <Fav isSerie={true} id={elm.id} sacarFavoritos={ () => this.sacarFavoritos(elm.id, true)}/>
-                                </div>
-                            </article>
+                        (this.state.seriesFav.map((elm) => 
+                            <Card
+                                key={elm.id}
+                                id={elm.id}
+                                poster_path={elm.poster_path}
+                                name={elm.name}
+                                overview={elm.overview}
+                                isSerie={true}
+                                sacarFavoritos={() => this.sacarFavoritos(elm.id, true)} 
+                            />
                         ))}
                 </section>
             </>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import './styles.css';
-import Fav from '../Favoritos/fav';
+import Card from '../../components/Card/Card'
 
 class SeriesTodas extends Component{
     constructor(props){
@@ -10,15 +9,8 @@ class SeriesTodas extends Component{
             series: [],
             pag:1,
             cargando: true,
-            verDescripcion: null,
             busqueda: ''
         }
-    }
-
-    cambio(id){
-        this.setState({
-          verDescripcion: id === this.state.verDescripcion ? null : id
-        })
     }
 
     controlarCambios = (evento) => {
@@ -71,7 +63,7 @@ class SeriesTodas extends Component{
     }
 
     render(){
-        const filtradas = this.state.series.filter(s => 
+        const filtradas = this.state.series.filter(s =>
             s.name.toLowerCase().includes(this.state.busqueda.toLowerCase())
         );
         return(
@@ -81,28 +73,22 @@ class SeriesTodas extends Component{
                 {this.state.cargando && <p>Cargando...</p>}
                 <section className='row cards'>
                     {
-                        filtradas.map((elm, i) => 
-                            <article key={i} className='single-card-movie'>
-                                <img src={`https://image.tmdb.org/t/p/w342/${elm.poster_path}`} alt="" className="card-img-top"/>
-                                <div className='cardBody'>
-                                    <h5 className="card-title">{elm.name}</h5>
-                                    <button onClick={()=>{this.cambio(elm.id)}}>
-                                        {this.state.verDescripcion === elm.id ? "Ocultar descripción" : "Ver descripción"}
-                                    </button>
-                                    {this.state.verDescripcion === elm.id && <p className="card-text">{elm.overview}</p>}
-                                    <br></br>
-                                    <Link to={`/serie/${elm.id}`} className="btn btn-primary">Ir a detalle</Link>
-                                    <br></br>
-                                    <Fav isSerie={true} id={elm.id}/>
-                                </div>
-                            </article>
+                        filtradas.map((elm, i) =>
+                            <Card
+                                key={i}
+                                id={elm.id}
+                                poster_path={elm.poster_path}
+                                name={elm.name}
+                                overview={elm.overview}
+                                isSerie={true}
+                            />
                         )
                     }
                 </section>
                 <button onClick={()=> this.masSeries()}>Ver más</button>
             </>
         )
-    }
+    } 
 }
 
 export default SeriesTodas;
