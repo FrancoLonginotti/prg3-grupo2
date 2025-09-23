@@ -11,6 +11,7 @@ nav ul {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 
 .nav {
@@ -32,4 +33,39 @@ li {
 
 h1{
     text-align: center;
+}
+
+@media (min-width: 600px) {
+  nav ul {
+    flex-direction: row;     
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center;
+  }
+
+  li {
+    padding: 2vh 3vw 2vh 0;  
+    width: auto;             
+    text-align: left;
+  }
+
+  .nav a {
+    padding: 0;              
+    display: inline;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav {
+    grid-template-columns: 1fr; 
+  }
+
+  nav ul {
+    justify-content: flex-start; 
+  }
+
+  li {
+    padding-right: 5vw;        
+    padding-top: 2vh;
+  }
 }

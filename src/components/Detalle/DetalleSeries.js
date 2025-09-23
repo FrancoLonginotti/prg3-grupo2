@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Fav from '../../screens/Favoritos/Fav'
+import Fav from '../../screens/Favoritos/fav'
 
 class DetalleSeries extends Component{
     constructor(props){

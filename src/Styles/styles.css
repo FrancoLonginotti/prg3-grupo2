@@ -13,7 +13,8 @@
     width: 19%;
 }
 .single-card-movie {
-    width: 24%;
+    width: 90%;
+    margin-bottom: 15px;
 }
 .single-card-playing {
     width: 15%;
@@ -41,8 +42,21 @@
     width: 15%;
 }
 
-@media(min-width: 765px){
-    nav {
+.btn{
+    line-height: 2;
+}
+
+@media (min-width: 600px) {
+.single-card-movie{
+    width: 25%;
+  }
+  nav {
         grid-template-columns: 4fr 3fr;
     }
+}
+
+@media (min-width: 1024px) {
+.single-card-movie{
+    width: 20%;
+  }
 }

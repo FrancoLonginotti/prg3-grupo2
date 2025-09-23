@@ -1,66 +1,18 @@
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    padding: 0.75rem 1.25rem;
-    justify-content: space-between;
-    margin-bottom: 2%;
-}
+*{
+    box-sizing: border-box;
 
-.card-img-top{
-    max-width: 100%;
-    max-height: auto;
 }
-
-.cardBody {
-    margin-top: 12px;
+ul,ol {
+    padding: 0;
 }
-.single-card-people {
-    width: 100%;
+li {
+    list-style-type:none;
 }
-
-.single-card-playing {
-    width: 100%;
+a {
+    text-decoration: none;
+    color: #000;
 }
-#now-playing .card-text{
-    height: 100px;
-    overflow: hidden;
-}
-.single-card-tv {
-    width: 100%;
-}
-.tv-show .card-text{
-    height: 100px;
-    overflow: hidden;
-}
-.single-card-on-air{
-    width: 100%;
-}
-#on-air-today .card-text{
-    height: 100px;
-    overflow: hidden;
-}
-
-.all-movies .single-card-movie {
-    width: 100%;
-}
-
-@media (min-width: 600px) {
-  .single-card-movie,
-  .single-card-tv,
-  .single-card-people,
-  .single-card-playing,
-  .single-card-on-air {
-    width: 48%;
-  }
-}
-
-@media (min-width: 992px) {
-  .single-card-movie,
-  .single-card-tv,
-  .single-card-people,
-  .single-card-playing,
-  .single-card-on-air {
-    width: 23%;  
-  }
+body {
+    margin: 0;
+    background-color: #eee;
 }

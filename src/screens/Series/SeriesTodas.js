@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './styles.css';
 import Card from '../../components/Card/Card'
 
 class SeriesTodas extends Component{

@@ -10,6 +10,7 @@ import NotFound from './components/NotFound/NotFound';
 import DetalleSeries from './components/Detalle/DetalleSeries';
 import DetallePeliculas from './components/Detalle/DetallePeliculas';
 import Favoritos from './screens/Favoritos/Favoritos';
+import './Styles/styles.css'
 
 
 function App() {
