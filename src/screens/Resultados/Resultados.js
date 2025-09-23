@@ -13,10 +13,10 @@ class Resultados extends Component{
         }
     }
     
-    componentDidMount() {
+    buscar(query) {
         const api_key = "296583e7e37a5c7294c3a04233952058"
         
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${this.props.match.params.query}&api_key=${api_key}`)
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${api_key}`)
         .then(res => res.json())
         .then(data => {
         console.log(data)
@@ -27,7 +27,7 @@ class Resultados extends Component{
         })
         .catch(err => console.error(err));
 
-        fetch(`https://api.themoviedb.org/3/search/tv?query=${this.props.match.params.query}&api_key=${api_key}`)
+        fetch(`https://api.themoviedb.org/3/search/tv?query=${query}&api_key=${api_key}`)
         .then(res => res.json())
         .then(data => {
         console.log(data)
@@ -38,6 +38,16 @@ class Resultados extends Component{
         })
         .catch(err => console.error(err));
     }
+
+    componentDidMount() {
+        this.buscar(this.props.match.params.query.toLowerCase());
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.query !== this.props.match.params.query) {
+            this.buscar(this.props.match.params.query.toLowerCase());
+        }
+    }    
 
     render(){
         return(

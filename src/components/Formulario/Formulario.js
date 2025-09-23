@@ -14,6 +14,9 @@ class Formulario extends Component{
     prevenirDefault(evento){
         evento.preventDefault()
         this.props.history.push(`/resultados/${this.state.busqueda}`)
+        this.setState({ 
+            busqueda: '' 
+        })
     }
 
     controlarCambios(evento){
@@ -26,7 +29,7 @@ class Formulario extends Component{
         return(
             <>
                 <form className="search-form" onSubmit={(event)=>this.prevenirDefault(event)}>
-                    <input type='text' name="searchData" placeholder="Buscar..." onChange={(event)=>this.controlarCambios(event)}></input>
+                    <input type='text' value={this.state.busqueda} placeholder="Buscar..." onChange={(event)=>this.controlarCambios(event)}></input>
                     <button type='submit' className="btn btn-success btn-sm">Buscar</button>
                 </form>
             </>
