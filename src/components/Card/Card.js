@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import Fav from '../../screens/Favoritos/Fav';
+import Fav from '../../screens/Favoritos/fav';
 
 class Card extends Component{
     constructor(props){
